@@ -6,7 +6,7 @@
   "homepage": "https://hiees-u.github.io/block-platform",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build --hash-algorithm=sha256",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
