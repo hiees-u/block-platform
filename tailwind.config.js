@@ -55,7 +55,7 @@ export default {
   		}
   	}
   },
-  darkMode: ['class', "class"], // Enable dark mode
+  darkMode: ['class'], // Enable dark mode
   plugins: [require("tailwindcss-animate")],
 }
 
