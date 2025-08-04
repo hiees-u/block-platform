@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import HomePage from "./pages/HomePage";
-import PostPage from "./pages/PostPage";
-import AboutPage from "./pages/AboutPage";
-import PATHS from "./routers/paths";
-import Navbar from "./components/Navbar.tsx";
-import type { RootState } from "./store/store.ts";
+import HomePage from "@/pages/HomePage";
+import PostPage from "@/pages/PostPage";
+import AboutPage from "@/pages/AboutPage";
+import PATHS from "@/routers/paths";
+import Navbar from "@/components/Navbar.tsx";
+import type { RootState } from "@/store/store.ts";
 
 function App() {
   const theme = useSelector((state: RootState) => state.theme.mode);
