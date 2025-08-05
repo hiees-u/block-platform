@@ -30,9 +30,6 @@ function Navbar() {
         <Link to={PATHS.HOME} className={linkClass(PATHS.HOME)}>
           Home
         </Link>
-        <Link to={PATHS.ABOUT} className={linkClass(PATHS.ABOUT)}>
-          About
-        </Link>
         <Link to={PATHS.POSTS} className={linkClass(PATHS.POSTS)}>
           Post
         </Link>
@@ -61,11 +58,6 @@ function Navbar() {
                 <DialogClose asChild>
                   <Link to={PATHS.HOME} className={linkClass(PATHS.HOME) + ' text-center'}>
                     Home
-                  </Link>
-                </DialogClose>
-                <DialogClose asChild>
-                  <Link to={PATHS.ABOUT} className={linkClass(PATHS.ABOUT) + ' text-center'}>
-                    About
                   </Link>
                 </DialogClose>
                 <DialogClose asChild>

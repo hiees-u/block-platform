@@ -8,12 +8,33 @@ export interface Blog {
   author: string;
 }
 
+const sampleBlogs = [
+  {
+    id: "1",
+    title: "Getting Started with React",
+    content: "React is a powerful JavaScript library for building user interfaces...",
+    author: "John Doe",
+  },
+  {
+    id: "2",
+    title: "Understanding Redux Toolkit",
+    content: "Redux Toolkit simplifies Redux development by reducing boilerplate...",
+    author: "Jane Smith",
+  },
+  {
+    id: "3",
+    title: "Tailwind CSS: Utility-First Styling",
+    content: "Tailwind CSS allows for rapid UI development with utility classes...",
+    author: "Alice Johnson",
+  },
+];
+
 interface BlogState {
   blogs: Blog[];
 }
 
 const initialState: BlogState = {
-  blogs: [],
+  blogs: sampleBlogs,
 };
 
 const blogSlice = createSlice({

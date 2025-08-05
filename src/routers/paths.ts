@@ -1,6 +1,5 @@
 const paths = {
   HOME: "/",
-  ABOUT: "/about",
   POSTS: "/posts",
 };
 

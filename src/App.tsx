@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 
 import HomePage from "@/pages/HomePage";
 import PostPage from "@/pages/PostPage";
-import AboutPage from "@/pages/AboutPage";
 import PATHS from "@/routers/paths";
 import Navbar from "@/components/Navbar.tsx";
 import type { RootState } from "@/store/store.ts";
@@ -23,11 +22,10 @@ function App() {
   return (
     <div className={'min-h-screen dark:bg-black text-black dark:text-white'}>
       <Navbar />
-      <div className={`container p-4`}>
+      <div className={`container p-4 mx-auto`}>
         <Routes>
           <Route path={PATHS.HOME} element={<HomePage />} />
           <Route path={PATHS.POSTS} element={<PostPage />} />
-          <Route path={PATHS.ABOUT} element={<AboutPage />} />
         </Routes>
       </div>
     </div>
