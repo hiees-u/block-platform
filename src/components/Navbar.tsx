@@ -61,8 +61,8 @@ function Navbar() {
                   </Link>
                 </DialogClose>
                 <DialogClose asChild>
-                  <Link to={PATHS.POSTS} className={linkClass(PATHS.POSTS) + ' text-center'}>
-                    Post
+                  <Link to={PATHS.CART} className={linkClass(PATHS.CART) + ' text-center'}>
+                    Cart
                   </Link>
                 </DialogClose>
               </DialogDescription>
