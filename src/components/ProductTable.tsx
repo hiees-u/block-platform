@@ -14,9 +14,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useState } from "react";
+import { ShoppingCart } from "lucide-react";
 
 import type { Product } from "@/types";
-import { useState } from "react";
 
 export function ProductTable({ products }: { products: Product[] }) {
   const columnHelper = createColumnHelper<Product>();
@@ -78,6 +79,7 @@ export function ProductTable({ products }: { products: Product[] }) {
                   }[header.column.getIsSorted() as string] ?? null}
                 </TableHead>
               ))}
+              <TableHead className="w-24 text-center">Actions</TableHead>
             </TableRow>
           ))}
         </TableHeader>
@@ -90,8 +92,18 @@ export function ProductTable({ products }: { products: Product[] }) {
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </TableCell>
               ))}
+              <TableCell className="w-24 flex justify-center items-center">
+                <ShoppingCart size={24} className="cursor-pointer" />
+              </TableCell>
             </TableRow>
           ))}
+          {products.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="text-center">
+                No products available
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </>
