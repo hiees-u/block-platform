@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import type { Product } from "@/types";
 import { getProducts } from "@/axios/product";
-import ProductItem from "@/components/ProductItem";
+import { ProductTable } from "@/components/ProductTable";
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -19,15 +19,8 @@ export default function HomePage() {
   }, []);
   
   return (
-    <div>
-      <h1>Home Page</h1>
-      {products.length > 0 ? (products.map((product) => (
-        <ProductItem key={product.id} product={product} />
-      ))) : (
-        <p>No products available</p>
-      )}
-
-      {products.length === 0 && <p>Loading products...</p>}
-    </div>
+    <>
+      <ProductTable products={products} />
+    </>
   );
 }
