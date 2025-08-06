@@ -14,6 +14,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 
@@ -93,7 +98,14 @@ export function ProductTable({ products }: { products: Product[] }) {
                 </TableCell>
               ))}
               <TableCell className="w-24 flex justify-center items-center">
-                <ShoppingCart size={24} className="cursor-pointer" />
+                <Popover>
+                  <PopoverTrigger>
+                    <ShoppingCart size={24} className="cursor-pointer" />
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    Place content for the popover here {row.original.id}.
+                  </PopoverContent>
+                </Popover>
               </TableCell>
             </TableRow>
           ))}
