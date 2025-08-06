@@ -1,6 +1,6 @@
 const paths = {
   HOME: "/",
-  POSTS: "/posts",
+  CART: "/cart",
 };
 
 export default paths;
