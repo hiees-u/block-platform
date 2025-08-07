@@ -1,9 +1,9 @@
-import Cart from "@/components/Cart";
+import CartList from "@/components/CartList";
 
 export default function CartPage() {
   return (
     <div>
-      <Cart />
+      <CartList />
     </div>
   );
 }

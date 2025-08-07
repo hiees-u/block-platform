@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { SpinnerNumberInput } from "./SpinnerNumberInput";
 import { useState } from "react";
+
+import { SpinnerNumberInput } from "./SpinnerNumberInput";
+import { useCartStore } from "@/store/cartStore";
 
 type AddToCartProps = {
   id: number;
@@ -8,11 +10,12 @@ type AddToCartProps = {
 };
 
 export default function AddToCart({ id, onClose }: AddToCartProps) {
-  var [quantity, setQuantity] = useState(1); // Default quantity
+  var [quantity, setQuantity] = useState(1);
+  const addItem = useCartStore((state) => state.addItem);
 
   const handleAddToCart = () => {
-    console.log(`Adding product with ID ${id} to cart with quantity ${quantity}`);
-    onClose && onClose(); // Close the popover if onClose is provided
+    addItem(id, quantity);
+    onClose && onClose();
   };
 
   return (
