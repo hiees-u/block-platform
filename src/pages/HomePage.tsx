@@ -1,18 +1,26 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
-import BlogItem from "@/components/BlogItem";
-import type { RootState } from "@/store/store";
+import type { Product } from "@/types";
+import { getProducts } from "@/axios/product";
+import { ProductTable } from "@/components/ProductTable";
 
-function HomePage() {
-  const blogs = useSelector((state: RootState) => state.blog.blogs);
+export default function HomePage() {
+  const [products, setProducts] = useState<Product[]>([]);
 
+  useEffect(() => {
+    getProducts()
+      .then((data) => {
+        setProducts(data);
+        console.log("Products fetched:", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+  }, []);
+  
   return (
     <>
-      {blogs.map(blog => (
-        <BlogItem key={blog.id} blog={blog} />
-      ))}
+      <ProductTable products={products} />
     </>
   );
 }
-
-export default HomePage;

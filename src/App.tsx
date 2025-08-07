@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import HomePage from "@/pages/HomePage";
-import PostPage from "@/pages/PostPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import CartPage from "./pages/CartPage";
 import PATHS from "@/routers/paths";
 import Navbar from "@/components/Navbar.tsx";
 import type { RootState } from "@/store/store.ts";
@@ -26,7 +26,7 @@ function App() {
       <div className={`container p-4 mx-auto`}>
         <Routes>
           <Route path={PATHS.HOME} element={<HomePage />} />
-          <Route path={PATHS.POSTS} element={<PostPage />} />
+          <Route path={PATHS.CART} element={<CartPage />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </div>

@@ -30,8 +30,8 @@ function Navbar() {
         <Link to={PATHS.HOME} className={linkClass(PATHS.HOME)}>
           Home
         </Link>
-        <Link to={PATHS.POSTS} className={linkClass(PATHS.POSTS)}>
-          Post
+        <Link to={PATHS.CART} className={linkClass(PATHS.CART)}>
+          Cart
         </Link>
       </div>
       <div className="sm:flex hidden">
@@ -61,8 +61,8 @@ function Navbar() {
                   </Link>
                 </DialogClose>
                 <DialogClose asChild>
-                  <Link to={PATHS.POSTS} className={linkClass(PATHS.POSTS) + ' text-center'}>
-                    Post
+                  <Link to={PATHS.CART} className={linkClass(PATHS.CART) + ' text-center'}>
+                    Cart
                   </Link>
                 </DialogClose>
               </DialogDescription>
