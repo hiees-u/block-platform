@@ -52,7 +52,7 @@ export default function ConfirmCheckOut() {
     fetchProducts();
   }, [items]);
 
-  const onSubmit = (data: { email: string, address: string }) => {
+  const onSubmit = () => {
     clearCart();
     setOpen(false);
   };
