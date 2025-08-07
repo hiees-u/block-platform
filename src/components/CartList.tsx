@@ -42,17 +42,26 @@ export default function CartList() {
       header: "Title",
       cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor("price", {
-      header: "Price",
-      cell: (info) => `$${info.getValue().toFixed(2)}`,
+    columnHelper.accessor("quantity", {
+      header: "Quantity",
+      cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("category", {
       header: "Category",
       cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor("quantity", {
-      header: "Quantity",
-      cell: (info) => info.getValue(),
+    columnHelper.accessor("price", {
+      header: "Price",
+      cell: (info) => `$${info.getValue().toFixed(2)}`,
+      footer: ({ table }) => {
+        const total = table.getRowModel().rows.reduce((sum, row) => {
+          // Use type assertion to tell TypeScript these are numbers
+          const price = (row.getValue("price") as number) || 0;
+          const quantity = (row.getValue("quantity") as number) || 0;
+          return sum + price * quantity;
+        }, 0);
+        return <>Total: ${total.toFixed(2)}</>;
+      },
     }),
   ];
 
@@ -64,7 +73,7 @@ export default function CartList() {
 
   useEffect(() => {
     fetchProducts();
-    console.log("table.getHeaderGroups=> ", table.getHeaderGroups());
+    console.log("table.getFooterGroups=> ", table.getFooterGroups());
   }, [items]);
 
   return (
@@ -98,6 +107,15 @@ export default function CartList() {
               </TableRow>
             );
           })}
+          {table.getFooterGroups().map((footerGroup) => (
+            <TableRow key={footerGroup.id}>
+              {footerGroup.headers.map((footer) => (
+                <TableCell key={footer.id}>
+                  {flexRender(footer.column.columnDef.footer, footer.getContext())}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </>
