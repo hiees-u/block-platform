@@ -23,10 +23,12 @@ import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 
 import type { Product } from "@/types";
+import AddToCart from "./AddToCart";
 
 export function ProductTable({ products }: { products: Product[] }) {
   const columnHelper = createColumnHelper<Product>();
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [openPopoverId, setOpenPopoverId] = useState<number | null>(null);
 
   const columns = [
     columnHelper.accessor("id", {
@@ -90,7 +92,9 @@ export function ProductTable({ products }: { products: Product[] }) {
         </TableHeader>
 
         <TableBody>
-          {table.getRowModel().rows.map((row) => (
+          {table.getRowModel().rows.map((row) => {
+            const productId = row.original.id;
+            return (
             <TableRow key={row.id}>
               {row.getVisibleCells().map((cell) => (
                 <TableCell key={cell.id}>
@@ -98,17 +102,23 @@ export function ProductTable({ products }: { products: Product[] }) {
                 </TableCell>
               ))}
               <TableCell className="w-24 flex justify-center items-center">
-                <Popover>
+                <Popover 
+                  open={openPopoverId === productId}
+                  onOpenChange={(open) =>
+                    setOpenPopoverId(open ? productId : null)
+                  }
+                >
                   <PopoverTrigger>
                     <ShoppingCart size={24} className="cursor-pointer" />
                   </PopoverTrigger>
                   <PopoverContent>
-                    Place content for the popover here {row.original.id}.
+                    <AddToCart id={productId} onClose={() => setOpenPopoverId(null)} />
                   </PopoverContent>
                 </Popover>
               </TableCell>
             </TableRow>
-          ))}
+            );
+          })}
           {products.length === 0 && (
             <TableRow>
               <TableCell colSpan={columns.length} className="text-center">
