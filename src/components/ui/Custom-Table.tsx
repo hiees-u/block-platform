@@ -42,13 +42,32 @@ export default function CustomTable(prop: CustomTableProps<any>) {
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
+                <TableHead
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  onClick={
+                    header.column.getCanSort()
+                      ? header.column.getToggleSortingHandler()
+                      : undefined
+                  }
+                  className={`whitespace-nowrap ${
+                    header.column.getCanSort()
+                      ? "cursor-pointer select-none"
+                      : "cursor-default"
+                  }`}
+                >
                   {header.isPlaceholder
                     ? null
                     : flexRender(
                         header.column.columnDef.header,
                         header.getContext()
                       )}
+                  {header.column.getCanSort() &&
+                    ({
+                      asc: " 🔼",
+                      desc: " 🔽",
+                    }[header.column.getIsSorted() as string] ??
+                      " ⏺")}
                 </TableHead>
               ))}
             </TableRow>

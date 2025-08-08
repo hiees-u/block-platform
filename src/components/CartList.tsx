@@ -27,21 +27,26 @@ export default function CartList() {
   const columns = [
     columnHelper.accessor("id", {
       header: "ID",
+      enableSorting: false,
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("title", {
       header: "Title",
+      enableSorting: false,
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("quantity", {
+      enableSorting: false,
       header: "Quantity",
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("category", {
+      enableSorting: false,
       header: "Category",
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("price", {
+      enableSorting: false,
       header: "Price",
       cell: (info) => `$${info.getValue().toFixed(2)}`,
       footer: ({ table }) => {
