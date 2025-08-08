@@ -7,23 +7,26 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { useForm } from "react-hook-form";
+import * as Yup from "yup";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
-
 
 import { getProductById } from "@/axios/product";
 import { useCartStore } from "@/store/cartStore";
 import type { ProductCart } from "@/types";
-import schema from "@/schema/index";
 import { Form } from "./ui/Custom-Form";
 import { CustomField } from "./ui/CustomField";
+import { createEmailSchemaRequired, createPhoneSchemaRequired } from "@/schema";
 
 type FormValues = {
   email: string;
   address: string;
 };
+
+const schema: Yup.ObjectSchema<FormValues>  =  Yup.object({
+  email: createEmailSchemaRequired({ label: "Email" }),
+  address: createPhoneSchemaRequired({ label: "Shipping Address" }),
+});
 
 export default function ConfirmCheckOut() {
   const [productsCart, setProductsCart] = useState<ProductCart[]>([]);
