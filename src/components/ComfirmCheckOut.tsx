@@ -31,11 +31,6 @@ export default function ConfirmCheckOut() {
   const [open, setOpen] = useState(false);
   const clearCart = useCartStore((state) => state.clearCart);
   const { items } = useCartStore();
-  
-  const {
-  } = useForm<FormValues>({
-    resolver: yupResolver(schema),
-  });
 
   const fetchProducts = async () => {
     const productPromises = items.map((item) => getProductById(item.id));
