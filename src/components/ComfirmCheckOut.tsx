@@ -23,7 +23,7 @@ type FormValues = {
   address: string;
 };
 
-const schema: Yup.ObjectSchema<FormValues>  =  Yup.object({
+const schema: Yup.ObjectSchema<FormValues> = Yup.object({
   email: createEmailSchemaRequired({ label: "Email" }),
   address: createPhoneSchemaRequired({ label: "Shipping Address" }),
 });
@@ -56,7 +56,8 @@ export default function ConfirmCheckOut() {
     setTotalAmount(total);
   }, [productsCart]);
 
-  const onSubmit = () => {
+  const onSubmit = (data: FormValues) => {
+    console.log("Form values:", data);
     clearCart();
     setOpen(false);
   };
@@ -78,10 +79,7 @@ export default function ConfirmCheckOut() {
                 defaultValues={{ email: "", address: "" }}
                 onSubmit={onSubmit}
               >
-                <CustomField
-                  name="email"
-                  label="Enter your email to confirm"
-                />
+                <CustomField name="email" label="Enter your email to confirm" />
                 <CustomField
                   name="address"
                   label="Enter your Address to confirm"
