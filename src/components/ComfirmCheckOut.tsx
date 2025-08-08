@@ -11,27 +11,18 @@ import {
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
-import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 
 import { getProductById } from "@/axios/product";
 import { useCartStore } from "@/store/cartStore";
 import type { ProductCart } from "@/types";
+import schema from "@/schema/index";
 
 type FormValues = {
   email: string;
   address: string;
 };
-
-const schema = Yup.object({
-  email: Yup.string()
-    .required("Email is required")
-    .email("Invalid email format"),
-  address: Yup.string()
-    .required("Address is required")
-    .min(5, "Address is too short"),
-});
 
 export default function ConfirmCheckOut() {
   const [productsCart, setProductsCart] = useState<ProductCart[]>([]);
@@ -43,7 +34,7 @@ export default function ConfirmCheckOut() {
   const {
     register,
     handleSubmit,
-    formState: { errors }, // <- errors khai báo ở đây
+    formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
