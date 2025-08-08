@@ -42,17 +42,18 @@ export default function ConfirmCheckOut() {
       quantity: items[index].quantity,
     }));
     setProductsCart(productsWithQuantity);
-    const total = productsCart.reduce((sum, product) => {
-      return sum + product.price * product.quantity;
-    }, 0);
-    setTotalAmount(total);
-    console.log("Products in cart:", total);
-    
   };
 
   useEffect(() => {
     fetchProducts();
   }, [items]);
+
+  useEffect(() => {
+    const total = productsCart.reduce((sum, product) => {
+      return sum + product.price * product.quantity;
+    }, 0);
+    setTotalAmount(total);
+  }, [productsCart]);
 
   const onSubmit = () => {
     clearCart();
