@@ -11,10 +11,27 @@ import {
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 
 import { getProductById } from "@/axios/product";
 import { useCartStore } from "@/store/cartStore";
 import type { ProductCart } from "@/types";
+
+type FormValues = {
+  email: string;
+  address: string;
+};
+
+const schema = Yup.object({
+  email: Yup.string()
+    .required("Email is required")
+    .email("Invalid email format"),
+  address: Yup.string()
+    .required("Address is required")
+    .min(5, "Address is too short"),
+});
 
 export default function ConfirmCheckOut() {
   const [productsCart, setProductsCart] = useState<ProductCart[]>([]);
@@ -22,17 +39,14 @@ export default function ConfirmCheckOut() {
   const [open, setOpen] = useState(false);
   const clearCart = useCartStore((state) => state.clearCart);
   const { items } = useCartStore();
-
-  type CheckoutForm = {
-    email: string;
-    address: string;
-  };
-
+  
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<CheckoutForm>();
+    formState: { errors }, // <- errors khai báo ở đây
+  } = useForm<FormValues>({
+    resolver: yupResolver(schema),
+  });
 
   const fetchProducts = async () => {
     const productPromises = items.map((item) => getProductById(item.id));
@@ -63,8 +77,8 @@ export default function ConfirmCheckOut() {
   return (
     <>
       <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger  asChild>
-            <Button disabled={!items || items.length === 0}>Check Out</Button>
+        <AlertDialogTrigger asChild>
+          <Button disabled={!items || items.length === 0}>Check Out</Button>
         </AlertDialogTrigger>
         <AlertDialogContent className="w-[90%]">
           <AlertDialogHeader>
@@ -75,26 +89,14 @@ export default function ConfirmCheckOut() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <Input
                   placeholder="Enter your email to confirm"
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: "Invalid email",
-                    },
-                  })}
+                  {...register("email")}
                 />
                 {errors.email && (
                   <p className="text-sm text-red-500">{errors.email.message}</p>
                 )}
                 <Input
                   placeholder="Enter your Address to confirm"
-                  {...register("address", {
-                    required: "Address is required",
-                    minLength: {
-                      value: 5,
-                      message: "Address is too short",
-                    },
-                  })}
+                  {...register("address")}
                 />
                 {errors.address && (
                   <p className="text-sm text-red-500">
