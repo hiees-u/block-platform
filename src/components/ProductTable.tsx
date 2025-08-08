@@ -22,10 +22,12 @@ export function ProductTable({ products }: { products: Product[] }) {
     columnHelper.accessor("id", {
       header: "ID",
       cell: (info) => info.getValue(),
+      enableSorting: false,
     }),
     columnHelper.accessor("title", {
       header: "Title",
       cell: (info) => info.getValue(),
+      enableSorting: false,
     }),
     columnHelper.accessor("price", {
       header: "Price",
