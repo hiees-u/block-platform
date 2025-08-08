@@ -42,15 +42,18 @@ export default function ConfirmCheckOut() {
       quantity: items[index].quantity,
     }));
     setProductsCart(productsWithQuantity);
-    const total = productsCart.reduce((sum, product) => {
-      return sum + product.price * product.quantity;
-    }, 0);
-    setTotalAmount(total);
   };
 
   useEffect(() => {
     fetchProducts();
   }, [items]);
+
+  useEffect(() => {
+    const total = productsCart.reduce((sum, product) => {
+      return sum + product.price * product.quantity;
+    }, 0);
+    setTotalAmount(total);
+  }, [productsCart]);
 
   const onSubmit = () => {
     clearCart();
@@ -60,8 +63,10 @@ export default function ConfirmCheckOut() {
   return (
     <>
       <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger>Check Out</AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogTrigger  asChild>
+            <Button disabled={!items || items.length === 0}>Check Out</Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent className="w-[90%]">
           <AlertDialogHeader>
             <AlertDialogTitle>
               Are you sure Payment Confirmation - ${totalAmount}?

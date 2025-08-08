@@ -1,21 +1,12 @@
-import { getProductById } from "@/axios/product";
-import { useCartStore } from "@/store/cartStore";
-import type { ProductCart } from "@/types";
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+  createColumnHelper,
+} from "@tanstack/react-table";
+
+import type { ProductCart } from "@/types";
+import { getProductById } from "@/axios/product";
+import { useCartStore } from "@/store/cartStore";
+import CustomTable from "./ui/Custom-Table";
 
 export default function CartList() {
   const [productsCart, setProductsCart] = useState<ProductCart[]>([]);
@@ -65,59 +56,13 @@ export default function CartList() {
     }),
   ];
 
-  const table = useReactTable({
-    data: productsCart,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
   useEffect(() => {
     fetchProducts();
-    console.log("table.getFooterGroups=> ", table.getFooterGroups());
   }, [items]);
 
   return (
     <>
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </TableHead>
-              ))}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <TableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            );
-          })}
-          {table.getFooterGroups().map((footerGroup) => (
-            <TableRow key={footerGroup.id}>
-              {footerGroup.headers.map((footer) => (
-                <TableCell key={footer.id}>
-                  {flexRender(footer.column.columnDef.footer, footer.getContext())}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <CustomTable columns={columns} data={productsCart} />
     </>
   );
 }
