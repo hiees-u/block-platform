@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/input";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -34,9 +33,6 @@ export default function ConfirmCheckOut() {
   const { items } = useCartStore();
   
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
